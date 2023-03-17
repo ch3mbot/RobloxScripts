@@ -8,13 +8,11 @@ local function onTouch(otherPart)
 	-- Looks for a humanoid and stores it
 	local character = otherPart.Parent
 	local humanoid = character:FindFirstChildWhichIsA ("Humanoid")
-	-- Print statement for debugging
-	print("Something touched speedBoost")
-	-- Checks for Humanoid without speed boost	
-	if humanoid and humanoid.WalkSpeed <= 16 then
+	-- Print statement for debugging	
+	if humanoid then
 		print("A humanoid touched speedBoost")
 		-- Change to faster speed, wait, then change to normal
-		humanoid.WalkSpeed = 80
+		humanoid.WalkSpeed = FastSpeed
 		boostRunningNum += 1
 		print("Player is moving super fast")
 		wait(BoostTime)
