@@ -1,0 +1,7 @@
+local speed = 1 --speed of rotation, set to negative to change direction
+local ts = game:GetService("TweenService") --TweenService
+local object = script.Parent --Path to what object you're tweening
+local info = TweenInfo.new(10, Enum.EasingStyle.Linear, Enum.EasingDirection.In, -1, false, 0) -- -1 is for repeat count which will be infinite, false is for bool reverses which means it will not go backwards
+local goals = {Orientation = Vector3.new(0, 360 * speed, 0)} --Rotating it 360 degrees will make it go back to the original starting point, and with an infinite repeat count, it will go forever.
+local tween = ts:Create(object, info, goals)
+tween:Play()
