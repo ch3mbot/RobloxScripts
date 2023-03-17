@@ -1,0 +1,38 @@
+--time it takes to move from start to finish
+local MoveTime = 2
+--time to wait before going again, set to zero to always move
+local WaitTime = math.random(0, 100) / 100
+--how far to go in each direction, x y and z. (0, 0, 0) means stay still
+local moveDirection = Vector3.new(0, 0, 0)
+
+local TweenService = game:GetService("TweenService") --tween service
+local RunService = game:GetService("RunService") --run service
+
+local part = script.Parent --set up parent
+
+local info = TweenInfo.new(
+	MoveTime, -- how long the tween will take
+	Enum.EasingStyle.Linear, -- How the tween will play
+	Enum.EasingDirection.Out, -- which way itll go
+	-1, -- how many times itll repeat
+	true, -- if you want it to repeat
+	WaitTime -- delay time
+)
+
+local goal = {Position = Vector3.new(part.Position.X, part.Position.Y, part.Position.Z) + moveDirection}
+
+local tweening = TweenService:Create(part, info, goal)
+
+tweening:Play()
+
+local lastPosition = part.Position
+RunService.Stepped:Connect(function (_, deltaTime)
+	local currentPosition = part.Position
+	local deltaPosition = currentPosition - lastPosition
+	
+	local velocity = deltaPosition / deltaTime
+	
+	part.AssemblyLinearVelocity = velocity
+	
+	lastPosition = currentPosition
+end)
