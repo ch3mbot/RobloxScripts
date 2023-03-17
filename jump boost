@@ -1,5 +1,5 @@
 -- Gives temporary speed boost
-local FastSpeed = 80 -- speed to set the player
+local JumpForce = 150 -- jump force to set the player to
 local BoostTime = 3 -- how many seconds should the boost last
 
 local speedBoost = script.Parent
@@ -8,20 +8,18 @@ local function onTouch(otherPart)
 	-- Looks for a humanoid and stores it
 	local character = otherPart.Parent
 	local humanoid = character:FindFirstChildWhichIsA ("Humanoid")
-	-- Print statement for debugging
-	print("Something touched speedBoost")
-	-- Checks for Humanoid without speed boost	
-	if humanoid and humanoid.WalkSpeed <= 16 then
-		print("A humanoid touched speedBoost")
-		-- Change to faster speed, wait, then change to normal
-		humanoid.WalkSpeed = 80
+	-- Print statement for debugging	
+	if humanoid then
+		print("A humanoid touched jumpBoost")
+		-- Change to higher jump, wait, then change to normal
+		humanoid.UseJumpPower = true
+		humanoid.JumpPower = JumpForce
 		boostRunningNum += 1
 		print("Player is moving super fast")
 		wait(BoostTime)
 		boostRunningNum -= 1
 		if boostRunningNum <= 0 then
-			humanoid.WalkSpeed = 16 
-			print("Player is back at normal speed")
+			humanoid.JumpPower = 50 
 		end
 	end 
 end
