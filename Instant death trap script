@@ -1,0 +1,21 @@
+-- Checks for player touch. If true, sets health to 0
+
+-- Variable setup
+local trap = script.Parent
+
+-- Checks for Humanoid in otherPart
+local function onTouch(otherPart)
+	-- Store parent of otherPart
+	local character = otherPart.Parent
+
+	-- Looks for a humanoid
+	local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+
+	-- If part has humanoid, set health to 0
+	if humanoid then
+		humanoid.Health = 0
+	end
+end
+
+-- Connect the Touched event to onTouch
+trap.Touched:Connect(onTouch)
